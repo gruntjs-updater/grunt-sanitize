@@ -10,41 +10,58 @@
 
 module.exports = function(grunt) {
 
-  // Please see the Grunt documentation for more information regarding task
-  // creation: http://gruntjs.com/creating-tasks
+    var fs = require('fs');
+    var path = require('path');
+    var options;
 
-  grunt.registerMultiTask('sanitize', 'A grunt plugin that sanitizes filenames by either removing or replacing spaces and forcing them to lowercase.', function() {
-    // Merge task-specific and/or target-specific options with these defaults.
-    var options = this.options({
-      punctuation: '.',
-      separator: ', '
+    /**
+     * Format file name
+     * @param  {String} path
+     * @return {String}     
+     */
+    function formatFileName(filepath) {
+
+        var validFilename;
+
+        validFilename = filepath.replace(/\s/g, options.separator);
+        validFilename = validFilename.replace(/[^a-zA-Z_0-9.]/, '');
+        validFilename = validFilename.toLowerCase();
+        
+        return validFilename;
+    }
+
+
+    grunt.registerMultiTask('sanitize', 'A grunt plugin that sanitizes filenames by either removing or replacing spaces and forcing them to lowercase.', function() {
+      
+        // Merge task-specific and/or target-specific options with these defaults.
+        options = this.options({
+            separator: '_',
+        });
+
+
+        this.files.forEach(function(f) {
+
+            for (var i = 0; i < f.src.length; i++) {
+
+                var fileName = path.basename(f.src[i]),
+                    newFileName = formatFileName(fileName),
+                    newFilePath = path.dirname(f.src[i]) + '/' + newFileName,
+                    options1 = {color: 'red'},
+                    options2 = {color: 'green'};
+
+                if( f.src[i] == newFilePath ) {
+                    continue;
+                }
+                
+                fs.rename(f.src[i], newFilePath);
+
+                // Log a response to the console
+                grunt.log.writeln("File has been sanitized from : " + grunt.log.wordlist([fileName], options1) + 
+                    ' to: ' + grunt.log.wordlist([newFileName], options2));
+            }
+ 
+        });
+
     });
-
-    // Iterate over all specified file groups.
-    this.files.forEach(function(f) {
-      // Concat specified files.
-      var src = f.src.filter(function(filepath) {
-        // Warn on and remove invalid source files (if nonull was set).
-        if (!grunt.file.exists(filepath)) {
-          grunt.log.warn('Source file "' + filepath + '" not found.');
-          return false;
-        } else {
-          return true;
-        }
-      }).map(function(filepath) {
-        // Read file source.
-        return grunt.file.read(filepath);
-      }).join(grunt.util.normalizelf(options.separator));
-
-      // Handle options.
-      src += options.punctuation;
-
-      // Write the destination file.
-      grunt.file.write(f.dest, src);
-
-      // Print a success message.
-      grunt.log.writeln('File "' + f.dest + '" created.');
-    });
-  });
 
 };
