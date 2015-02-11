@@ -49,7 +49,7 @@ module.exports = function(grunt) {
                     options1 = {color: 'red'},
                     options2 = {color: 'green'};
 
-                if( f.src[i] == newFilePath ) {
+                if( f.src[i] === newFilePath ) {
                     continue;
                 }
                 
