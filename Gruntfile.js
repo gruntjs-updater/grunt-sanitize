@@ -30,16 +30,14 @@ module.exports = function(grunt) {
 
     // Configuration to be run (and then tested).
     sanitize: {
-      all: {
-        options: {
-          separator: '_'
-        },
-        files: {
-          src: [
-            'test/fixtures/*',
-            'test/expected/*'
-          ]
-        }
+      options: {
+        separator: '_'
+      },
+      files: {
+        src: [
+          'test/fixtures/*',
+          'test/expected/*'
+        ]
       }
     },
 

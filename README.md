@@ -25,15 +25,14 @@ In your project's Gruntfile, add a section named `sanitize` to the data object p
 ```js
 grunt.initConfig({
   sanitize: {
-    all: {
-      options: {
-        separator: '_'
-      },
-      files: {
-        src: [
-          'test/fixtures/*'
-        ]
-      }
+    options: {
+      separator: '_'
+    },
+    files: {
+      src: [
+        'test/fixtures/*',
+        'test/expected/*'
+      ]
     }
   }
 });
@@ -72,15 +71,13 @@ In this example, the `separator` option is defined as `-` rather than the defaul
 ```js
 grunt.initConfig({
   sanitize: {
-    all: {
-      options: {
-        separator: '_'
-      },
-      files: {
-        src: [
-          'test/fixtures/*'
-        ]
-      }
+    options: {
+      separator: '_'
+    },
+    files: {
+      src: [
+        'test/fixtures/*'
+      ]
     }
   }
 });
