@@ -1,6 +1,7 @@
 'use strict';
 
 var grunt = require('grunt');
+var path = require('path');
 
 /*
   ======== A Handy Little Nodeunit Reference ========
@@ -23,26 +24,21 @@ var grunt = require('grunt');
 */
 
 exports.sanitize = {
+
   setUp: function(done) {
     // setup here if necessary
     done();
   },
+
   default_options: function(test) {
     test.expect(1);
 
-    var actual = grunt.file.read('tmp/default_options');
-    var expected = grunt.file.read('test/expected/default_options');
-    test.equal(actual, expected, 'should describe what the default behavior is.');
+    var actual = path.basename('test/fixtures/my_image.jpg');
+    var expected = path.basename('test/expected/my_image.jpg');
+
+    test.equal(actual, expected, 'should show that the filename now has been sanitized.');
 
     test.done();
-  },
-  custom_options: function(test) {
-    test.expect(1);
+  }
 
-    var actual = grunt.file.read('tmp/custom_options');
-    var expected = grunt.file.read('test/expected/custom_options');
-    test.equal(actual, expected, 'should describe what the custom option(s) behavior is.');
-
-    test.done();
-  },
 };
