@@ -1,6 +1,6 @@
 {
   "name": "grunt-sanitize",
-  "description": "A grunt plugin that sanitizes filenames by either removing or replacing spaces and forcing them to lowercase.",
+  "description": "A grunt plugin that sanitizes filenames by either removing or replacing spaces, forcing them to lowercase and removing any non alphanumeric characters.",
   "version": "0.1.0",
   "homepage": "https://github.com/christill/grunt-sanitize",
   "author": {
@@ -37,6 +37,11 @@
     "grunt": "~0.4.5"
   },
   "keywords": [
-    "gruntplugin"
+    "gruntplugin",
+    "sanitize",
+    "file",
+    "rename",
+    "clean",
+    "regex"
   ]
 }
