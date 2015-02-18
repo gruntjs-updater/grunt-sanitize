@@ -83,5 +83,8 @@ grunt.initConfig({
 });
 ```
 
+##Help Wanted
+I'm looking for contributors to help improve this plugin by either adding features or to help fix bugs. If you are interested, please see the current outstanding [issues](https://github.com/christill/grunt-sanitize/issues) and make a pull request.
+
 ## Contributing
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
