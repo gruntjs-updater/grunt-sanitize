@@ -17,7 +17,7 @@ module.exports = function(grunt) {
     /**
      * Format file name
      * @param  {String} path
-     * @return {String}     
+     * @return {String}
      */
     function formatFileName(filepath) {
 
@@ -26,13 +26,18 @@ module.exports = function(grunt) {
         validFilename = filepath.replace(/\s/g, options.separator);
         validFilename = validFilename.replace(/[^a-zA-Z_0-9.]/, '');
         validFilename = validFilename.toLowerCase();
-        
+
         return validFilename;
     }
 
 
+    function handleError(err) {
+        throw err;
+    }
+
+
     grunt.registerMultiTask('sanitize', 'A grunt plugin that sanitizes filenames by either removing or replacing spaces and forcing them to lowercase.', function() {
-      
+
         // Merge task-specific and/or target-specific options with these defaults.
         options = this.options({
             separator: '_',
@@ -52,14 +57,14 @@ module.exports = function(grunt) {
                 if( f.src[i] === newFilePath ) {
                     continue;
                 }
-                
-                fs.rename(f.src[i], newFilePath);
+
+                fs.rename(f.src[i], newFilePath, handleError);
 
                 // Log a response to the console
-                grunt.log.writeln("File has been sanitized from : " + grunt.log.wordlist([fileName], options1) + 
+                grunt.log.writeln("File has been sanitized from : " + grunt.log.wordlist([fileName], options1) +
                     ' to: ' + grunt.log.wordlist([newFileName], options2));
             }
- 
+
         });
 
     });
